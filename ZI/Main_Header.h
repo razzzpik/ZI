@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 
 #include <string>
 using std::string;
@@ -59,8 +60,7 @@ void MakeAnalysis(string input, string FileName) {
 				}
 			}
 			Alphabet.push_back(k);
-			//TextFile4 << k << ":" << count << std::endl;
-			TextFile4 << "0x" << std::hex << (0xFF & static_cast<byte>(k)) << ":" << count << std::endl;
+			TextFile4 << "0x" << std::hex << (0xFF & static_cast<byte>(k)) << ": " << std::fixed << std::setprecision(2) << (float)count/input.size()*100 << "%" << std::endl;
 			count = 0;
 		}
 	}

@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
 	//begins. DEFAULT_KEYLENGTH= 16 bytes
 
 	std::string key = "current key";
-	std::string iv = "aaaaaaaaaaaaaaaa";
+	std::string iv = "second key";
 	string Text;
 	string InputText;
 	std::string CipherText;
@@ -28,8 +28,6 @@ int main(int argc, char* argv[]) {
 	}                                           
 	TextFile1.close();  
 
-	std::cout << InputText << std::endl;
-
 	InputText.pop_back();
 	MakeAnalysis(InputText, MainAnalysisFile);
 
@@ -39,9 +37,6 @@ int main(int argc, char* argv[]) {
 	CryptoPP::StreamTransformationFilter stfEncryptor(cbcEncryption, new CryptoPP::StringSink(CipherText));
 	stfEncryptor.Put(reinterpret_cast<const unsigned char*>(InputText.c_str()), InputText.length() + 1);
 	stfEncryptor.MessageEnd();
-		
-	std::cout << "cipher text plain: " << CipherText << std::endl;
-	std::cout << std::endl;
 
 	std::ofstream TextFile2("Encrypted.txt");            
 	TextFile2 << CipherText;                        
@@ -77,10 +72,8 @@ int main(int argc, char* argv[]) {
 	stfDecryptor.Put(reinterpret_cast<const unsigned char*>(result_string.c_str()), result_string.size());
 	stfDecryptor.MessageEnd();
 	
-	std::cout << DecryptedText << std::endl;
-	
 	if (!DecryptedText.empty()) {
-		DecryptedText.erase(DecryptedText.length() - 2, 2);
+		DecryptedText.erase(DecryptedText.length() - 1, 1);
 	}
 
 	std::ofstream TextFile3("Decrypted.txt");
